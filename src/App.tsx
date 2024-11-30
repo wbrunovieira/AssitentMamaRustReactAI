@@ -1,49 +1,40 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
-
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
+    <main className="bg-background text-primaryText min-h-screen flex flex-col items-center justify-center p-8">
+      <div className="text-center space-y-8">
+        <h1 className="text-5xl font-bold text-highlight">Bem-vinda, Rose!</h1>
 
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <div className="mt-8 space-y-6 w-full max-w-md">
+          <button
+            onClick={() => {}}
+            className="bg-buttonAction text-white px-8 py-4 rounded-lg w-full text-xl font-semibold hover:bg-buttonPrimary transition-all"
+          >
+            Ver Vídeos
+          </button>
+          <button
+            onClick={() => {}}
+            className="bg-buttonAction text-white px-8 py-4 rounded-lg w-full text-xl font-semibold hover:bg-buttonPrimary transition-all"
+          >
+            Ver Fotos
+          </button>
+          <button
+            onClick={() => {}}
+            className="bg-buttonAction text-white px-8 py-4 rounded-lg w-full text-xl font-semibold hover:bg-buttonPrimary transition-all"
+          >
+            Ouvir Música
+          </button>
+          <button
+            onClick={() => {}}
+            className="bg-buttonAction text-white px-8 py-4 rounded-lg w-full text-xl font-semibold hover:bg-buttonPrimary transition-all"
+          >
+            Ver Mensagens
+          </button>
+        </div>
       </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
     </main>
   );
 }
