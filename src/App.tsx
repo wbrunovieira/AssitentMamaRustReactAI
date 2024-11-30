@@ -1,54 +1,33 @@
-import { FaPlay, FaImage, FaMusic, FaEnvelope } from "react-icons/fa";
 import "./App.css";
-import { useState } from "react";
-import VideoPage from "./components/Videos";
+import useVoiceRecognition from "./components/useVoiceRecognition";
+import MicrophoneButton from "./components/MicrophoneButton";
+import VoiceRecognitionComponent from "./components/VoiceRecognitionComponent";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("home");
+  const { isListening } = useVoiceRecognition();
 
-  const goToVideoPage = () => setCurrentPage("videos");
-  const goBackToHome = () => setCurrentPage("home");
+  const textVariants = {
+    hidden: { opacity: 0, width: 0 },
+    visible: { opacity: 1, width: "auto", transition: { duration: 2 } },
+  };
+
+  const microphoneVariants = {
+    active: {
+      scale: 1.1,
+      opacity: 1,
+      transition: { yoyo: Infinity, duration: 1 },
+    },
+    inactive: { scale: 1, opacity: 0.5 },
+  };
+
   return (
     <main className="bg-lightGray text-darkText min-h-screen flex flex-col items-center justify-center p-12">
-      {currentPage === "home" ? (
-        <div className="text-center space-y-12">
-          <h1 className="text-6xl font-bold text-highlight">
-            Bem-vinda, Rose!
-          </h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-4xl">
-            <button
-              onClick={goToVideoPage}
-              className="bg-buttonAction text-white px-12 py-8 rounded-lg w-full text-4xl font-extrabold hover:bg-buttonPrimary hover:text-white hover:scale-110 transform transition-transform duration-300 transition-colors focus:ring-4 focus:ring-buttonPrimary"
-            >
-              <FaPlay size={50} />
-              <span className="ml-6">Assistir Vídeos</span>
-            </button>
-            <button
-              onClick={() => {}}
-              className="bg-buttonAction text-white px-12 py-8 rounded-lg w-full text-4xl font-extrabold hover:bg-buttonPrimary hover:text-white hover:scale-110 transform transition-transform duration-300 transition-colors focus:ring-4 focus:ring-buttonPrimary"
-            >
-              <FaImage size={50} />
-              <span className="ml-6">Ver Fotos</span>
-            </button>
-            <button
-              onClick={() => {}}
-              className="bg-buttonAction text-white px-12 py-8 rounded-lg w-full text-4xl font-extrabold hover:bg-buttonPrimary hover:text-white hover:scale-110 transform transition-transform duration-300 transition-colors focus:ring-4 focus:ring-buttonPrimary"
-            >
-              <FaMusic size={50} />
-              <span className="ml-6">Ouvir Música</span>
-            </button>
-            <button
-              onClick={() => {}}
-              className="bg-buttonAction text-white px-12 py-8 rounded-lg w-full text-4xl font-extrabold hover:bg-buttonPrimary hover:text-white hover:scale-110 transform transition-transform duration-300 transition-colors focus:ring-4 focus:ring-buttonPrimary"
-            >
-              <FaEnvelope size={50} />
-              <span className="ml-6">Ver Mensagens</span>
-            </button>
-          </div>
-        </div>
-      ) : (
-        <VideoPage onBack={goBackToHome} />
-      )}
+      <div className="text-center space-y-12">
+        <h1 className="text-6xl font-bold text-highlight">Bem-vinda, Rose!</h1>
+
+        <MicrophoneButton />
+        <VoiceRecognitionComponent />
+      </div>
     </main>
   );
 }
