@@ -1,37 +1,43 @@
-import { useState } from "react";
-import { invoke } from "@tauri-apps/api/core";
+import { FaPlay, FaImage, FaMusic, FaEnvelope } from "react-icons/fa";
 import "./App.css";
 
 function App() {
   return (
-    <main className="bg-background text-primaryText min-h-screen flex flex-col items-center justify-center p-8">
-      <div className="text-center space-y-8">
-        <h1 className="text-5xl font-bold text-highlight">Bem-vinda, Rose!</h1>
+    <main className="bg-lightGray text-darkText min-h-screen flex flex-col items-center justify-center p-12">
+      <div className="text-center space-y-12">
+        <h1 className="text-6xl font-bold text-highlight">Bem-vinda, Rose!</h1>
 
-        <div className="mt-8 space-y-6 w-full max-w-md">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-4xl">
           <button
             onClick={() => {}}
-            className="bg-buttonAction text-white px-8 py-4 rounded-lg w-full text-xl font-semibold hover:bg-buttonPrimary transition-all"
+            className="bg-buttonAction text-white px-12 py-8 rounded-lg w-full text-4xl font-extrabold hover:bg-buttonPrimary hover:text-white hover:scale-110 transform transition-transform duration-300 transition-colors focus:ring-4 focus:ring-buttonPrimary"
           >
-            Ver Vídeos
+            <FaPlay size={50} />
+            <span className="ml-6">Assistir Vídeos</span>
           </button>
+
           <button
             onClick={() => {}}
-            className="bg-buttonAction text-white px-8 py-4 rounded-lg w-full text-xl font-semibold hover:bg-buttonPrimary transition-all"
+            className="bg-buttonAction text-white px-12 py-8 rounded-lg w-full text-4xl font-extrabold hover:bg-buttonPrimary hover:text-white hover:scale-110 transform transition-transform duration-300 transition-colors focus:ring-4 focus:ring-buttonPrimary"
           >
-            Ver Fotos
+            <FaImage size={50} />
+            <span className="ml-6">Ver Fotos</span>
           </button>
+
           <button
             onClick={() => {}}
-            className="bg-buttonAction text-white px-8 py-4 rounded-lg w-full text-xl font-semibold hover:bg-buttonPrimary transition-all"
+            className="bg-buttonAction text-white px-12 py-8 rounded-lg w-full text-4xl font-extrabold hover:bg-buttonPrimary hover:text-white hover:scale-110 transform transition-transform duration-300 transition-colors focus:ring-4 focus:ring-buttonPrimary"
           >
-            Ouvir Música
+            <FaMusic size={50} />
+            <span className="ml-6">Ouvir Música</span>
           </button>
+
           <button
             onClick={() => {}}
-            className="bg-buttonAction text-white px-8 py-4 rounded-lg w-full text-xl font-semibold hover:bg-buttonPrimary transition-all"
+            className="bg-buttonAction text-white px-12 py-8 rounded-lg w-full text-4xl font-extrabold hover:bg-buttonPrimary hover:text-white hover:scale-110 transform transition-transform duration-300 transition-colors focus:ring-4 focus:ring-buttonPrimary"
           >
-            Ver Mensagens
+            <FaEnvelope size={50} />
+            <span className="ml-6">Ver Mensagens</span>
           </button>
         </div>
       </div>
