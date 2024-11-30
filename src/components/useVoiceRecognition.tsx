@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { invoke } from "@tauri-apps/api/core";
+
+import { isTauri } from "@tauri-apps/api/os";
 
 declare global {
   interface Window {
@@ -20,6 +23,18 @@ const useVoiceRecognition = () => {
   const [isListening, setIsListening] = useState(false);
   const [commandRecognized, setCommandRecognized] = useState(false);
   const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    isTauri().then((result) => {
+      if (!result) {
+        console.warn(
+          "API Tauri não disponível. Certifique-se de rodar no ambiente Tauri."
+        );
+      } else {
+        console.log("API Tauri disponível.");
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const SpeechRecognition =
@@ -70,6 +85,12 @@ const useVoiceRecognition = () => {
       if (transcript.includes("oi márcia")) {
         setCommandRecognized(true);
         console.log("Comando reconhecido: Oi Marcia");
+
+        console.log("Tentando invocar o backend...");
+
+        invoke<string>("log_command", { command: "Oi Márcia" })
+          .then((response) => console.log("Resposta do backend:", response))
+          .catch((error) => console.error("Erro:", error));
       }
     };
 
