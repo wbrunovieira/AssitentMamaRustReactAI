@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 
-import { isTauri } from "@tauri-apps/api/os";
-
 declare global {
   interface Window {
+    __TAURI__: any; // Definindo a propriedade __TAURI__ no objeto window
     SpeechRecognition: SpeechRecognitionStatic;
     webkitSpeechRecognition: SpeechRecognitionStatic;
   }
@@ -25,15 +24,18 @@ const useVoiceRecognition = () => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    isTauri().then((result) => {
-      if (!result) {
-        console.warn(
-          "API Tauri não disponível. Certifique-se de rodar no ambiente Tauri."
-        );
-      } else {
-        console.log("API Tauri disponível.");
-      }
-    });
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          console.log("Microfone habilitado stream", stream);
+        })
+        .catch((error) => {
+          console.error("Erro ao acessar o microfone:", error);
+        });
+    } else {
+      console.warn("Microfone não disponível.");
+    }
   }, []);
 
   useEffect(() => {
@@ -86,11 +88,16 @@ const useVoiceRecognition = () => {
         setCommandRecognized(true);
         console.log("Comando reconhecido: Oi Marcia");
 
-        console.log("Tentando invocar o backend...");
+        console.log(window);
+        if (window.__TAURI__) {
+          console.log("Tentando invocar o backend...");
 
-        invoke<string>("log_command", { command: "Oi Márcia" })
-          .then((response) => console.log("Resposta do backend:", response))
-          .catch((error) => console.error("Erro:", error));
+          invoke<string>("log_command", { command: "Oi Márcia" })
+            .then((response) => console.log("Resposta do backend:", response))
+            .catch((error) => console.error("Erro:", error));
+        } else {
+          console.warn("Tauri não está disponível.");
+        }
       }
     };
 

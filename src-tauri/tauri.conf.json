@@ -17,6 +17,8 @@
         "height": 600
       }
     ],
+    
+
     "security": {
       "csp": null
     }
@@ -31,5 +33,6 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
+     
   }
 }
